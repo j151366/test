@@ -2,8 +2,6 @@ import requests
 import time
 import json
 from bs4 import BeautifulSoup
-from collections import defaultdict
-import pprint
 import pandas as pd
 import random
 import time
@@ -184,19 +182,20 @@ if __name__ == '__main__':
             item = get_top_sell(self, level, parent)
             temp_pd = pd.DataFrame(item, columns=col_names)
             df = df.append(temp_pd, ignore_index=True)
+        # Remove this "break" to loop all data (now is only first main sub and its offspring)    
         break
 
     # Validation
     # Parent child relationship
-    print(list_sub)
-    print(list_catid)
-    print(list_catitemid)
+    # print(list_sub)
+    # print(list_catid)
+    # print(list_catitemid)
     # Corresponding name
-    print(subname)
-    print(sub2name)
-    print(sub3name)
+    # print(subname)
+    # print(sub2name)
+    # print(sub3name)
     # Print head
-    print(df.iloc[:50, :])
+    # print(df.iloc[:50, :])
 
 
     # Export to csv
