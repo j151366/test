@@ -213,5 +213,6 @@ if __name__ == '__main__':
         for index, row in df.iterrows():
             # comprehensive
             writer.writerow((column for column in row))
+
 """
 
