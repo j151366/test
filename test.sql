@@ -1,14 +1,31 @@
-Union (2)
-UNION can also be used to determine all occurrences of a field across multiple tables. Try out this exercise with no starter code.
+/*
+https://www.w3schools.com/sql/trysql.asp?filename=trysql_asc
+*/
 
-Instructions
-100 XP
-Determine all (non-duplicated) country codes in either the cities or the currencies table. The result should be a table with only one field called country_code.
-Sort by country_code in alphabetical order.
+-- 
+SELECT
+*
+FROM Customers
+INNER JOIN (SELECT City, Country, COUNT(*)
+FROM Customers
+GROUP BY City, Country
+HAVING COUNT(*) = 1)
+USING(City, Country)
 
-SELECT country_code
-FROM cities
-UNION
-SELECT code
-FROM currencies
-ORDER BY country_code;
+
+--
+SELECT
+*
+FROM Customers
+INNER JOIN
+  (SELECT City, COUNT(*)
+  FROM Customers
+  GROUP BY City
+  HAVING COUNT(*) = 1)
+USING(City)
+INNER JOIN
+  (SELECT Country, COUNT(*)
+  FROM Customers
+  GROUP BY Country
+  HAVING COUNT(*) = 1)
+USING(Country)
