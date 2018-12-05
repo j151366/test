@@ -29,3 +29,22 @@ INNER JOIN
   GROUP BY Country
   HAVING COUNT(*) = 1)
 USING(Country)
+
+
+--
+SELECT
+*
+FROM Customers
+WHERE 
+  City IN (SELECT City FROM (SELECT City, COUNT(*)
+  FROM Customers
+  GROUP BY City
+  HAVING COUNT(*) = 1))
+AND
+  Country IN (SELECT Country FROM (SELECT Country, COUNT(*)
+  FROM Customers
+  GROUP BY Country
+  HAVING COUNT(*) = 1))
+
+
+
