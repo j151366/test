@@ -47,4 +47,20 @@ AND
   HAVING COUNT(*) = 1))
 
 
+-- Find Duplicate 
+SELECT username, email, COUNT(*)
+FROM users
+GROUP BY username, email
+HAVING COUNT(*) > 1
 
+SELECT a.*
+FROM users a
+JOIN (SELECT username, email, COUNT(*)
+FROM users 
+GROUP BY username, email
+HAVING count(*) > 1 ) b
+ON a.username = b.username
+AND a.email = b.email
+ORDER BY a.email                                   
+--
+                                   
