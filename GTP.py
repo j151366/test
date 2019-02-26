@@ -2,13 +2,22 @@ import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 from googletrans.gtoken import TokenAcquirer
 import requests
+from googletrans import Translator
+
 
 def main():
     url = 'https://docs.google.com/spreadsheets/d/1KyXxb_G4nD7O92Bl1biKMqdm_i1Pvkz4QBJQOuY5EBo/edit?usp=sharing'
+    translator = Translator()
     wb = get_workbook_credentials(url)
     # print(wb.sheet1.get_all_values())
-    val = wb.sheet1.acell('A8').value
-
+    val = wb.sheet1.cell(9, 1).value
+    print(val != '')
+    i = 1
+    val = wb.sheet1.cell(i, 1).value
+    while val != '':
+        val = wb.sheet1.cell(i, 1).value
+        print(translator.translate(val, dest='en'))
+        i += 1
     token = get_text_token(str(val))
     # print(token)
     json = get_translated_list(token, str(val))
@@ -26,7 +35,7 @@ def get_workbook_credentials(url=''):
     try:
         scope = ['https://spreadsheets.google.com/feeds',
                  'https://www.googleapis.com/auth/drive']
-        credentials = ServiceAccountCredentials.from_json_keyfile_name('My Cloud AI Lab-102db0e9c9c4.json', scope)
+        credentials = ServiceAccountCredentials.from_json_keyfile_name('My Cloud AI Lab-83bf7fe72255.json', scope)
         gc = gspread.authorize(credentials)
     except:
         print('google_credentials_error')
