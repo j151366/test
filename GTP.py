@@ -7,14 +7,16 @@ def main():
     url = 'https://docs.google.com/spreadsheets/d/1KyXxb_G4nD7O92Bl1biKMqdm_i1Pvkz4QBJQOuY5EBo/edit?usp=sharing'
     wb = get_workbook_credentials(url)
     # print(wb.sheet1.get_all_values())
-    token = get_text_token('Book')
-    # print(token)
-    json = get_translated_list(token, 'Book')
-    jsonlist = list(json)
+    val = wb.sheet1.acell('A8').value
 
+    token = get_text_token(str(val))
+    # print(token)
+    json = get_translated_list(token, str(val))
+    jsonlist = list(json)
+    wb.sheet1.update_acell('B8', 'Definition: ' + jsonlist[-1][0][1][0][0] + ' Example: ' + jsonlist[-1][0][1][0][2])
     print('Definition: ' + jsonlist[-1][0][1][0][0] + ' Example: ' + jsonlist[-1][0][1][0][2])
-    print('Definition: ' + jsonlist[-1][0][1][1][0] + ' Example: ' + jsonlist[-1][0][1][1][2])
-    print('Definition: ' + jsonlist[-1][0][1][2][0] + ' Example: ' + jsonlist[-1][0][1][2][2])
+    # print('Definition: ' + jsonlist[-1][0][1][1][0] + ' Example: ' + jsonlist[-1][0][1][1][2])
+    # print('Definition: ' + jsonlist[-1][0][1][2][0] + ' Example: ' + jsonlist[-1][0][1][2][2])
     # print(list(jsonlist))
     # wb.sheet1.update_cells(list(jsonlist))
 
